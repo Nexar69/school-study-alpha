@@ -22,7 +22,12 @@ jobs:
       - name: Fetch and parse EduPage Webcal
         env:
           EDUPAGE_WEBCAL_URL: ${{ secrets.EDUPAGE_WEBCAL_URL }}
-        run: python scripts/sync_edupage.py
+        run: |
+          if [ -z "$EDUPAGE_WEBCAL_URL" ]; then
+            echo "EduPage Webcal secret is not configured yet; skipping."
+            exit 0
+          fi
+          python scripts/sync_edupage.py
 
       - name: Publish changes when the calendar changed
         run: |
