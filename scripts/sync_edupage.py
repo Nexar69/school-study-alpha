@@ -4,6 +4,7 @@ import json
 import os
 import re
 import urllib.request
+import subprocess
 from datetime import datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -141,9 +142,20 @@ def main() -> None:
     if not url:
         raise SystemExit("EDUPAGE_WEBCAL_URL is not configured")
 
-    request = urllib.request.Request(url, headers={"User-Agent": "Studyroom-EduPage-Sync/1.0"})
-    with urllib.request.urlopen(request, timeout=30) as response:
-        raw = response.read().decode("utf-8-sig", errors="replace")
+    try:
+        completed = subprocess.run(
+            [
+                "curl", "-4", "--fail", "--silent", "--show-error", "--location",
+                "--max-time", "30", "--user-agent", "Studyroom-EduPage-Sync/1.0", url,
+            ],
+            check=True,
+            capture_output=True,
+        )
+        raw = completed.stdout.decode("utf-8-sig", errors="replace")
+    except (FileNotFoundError, subprocess.CalledProcessError):
+        request = urllib.request.Request(url, headers={"User-Agent": "Studyroom-EduPage-Sync/1.0"})
+        with urllib.request.urlopen(request, timeout=30) as response:
+            raw = response.read().decode("utf-8-sig", errors="replace")
 
     tests = merge_adjacent(
         [item for event in parse_events(raw) if (item := assessment_from_event(event))]
