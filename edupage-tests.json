@@ -1,0 +1,27 @@
+{
+  "generatedAt": "2026-09-29T05:06:00.000Z",
+  "source": "EduPage calendar snapshot",
+  "tests": [
+    {
+      "id": "edupage-test-atmosphaere-2026-10-07",
+      "title": "Test Atmosphäre",
+      "topic": "Atmosphäre",
+      "subject": "Geographie",
+      "subjectCode": "Geo",
+      "start": "2026-10-07T07:35:00.000Z",
+      "end": "2026-10-07T08:55:00.000Z",
+      "location": "Aula",
+      "source": "edupage"
+    },
+    {
+      "id": "edupage-mathe-lineare-funktionen-potenzen-2026-10-14",
+      "title": "lineare Funktionen, Potenzen",
+      "topic": "lineare Funktionen, Potenzen",
+      "subject": "Mathematik",
+      "subjectCode": "Ma",
+      "start": "2026-10-14T06:00:00.000Z",
+      "end": "2026-10-14T06:40:00.000Z",
+      "source": "edupage"
+    }
+  ]
+}
